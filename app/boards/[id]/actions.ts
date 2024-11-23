@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@db/prisma";
+import { prisma } from "@lib/workloads/app-db";
 import { getSession } from "@lib/session";
 import type { Column, Item } from "@prisma/client";
 import { revalidatePath } from "next/cache";

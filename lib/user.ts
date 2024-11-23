@@ -1,7 +1,7 @@
 import "server-only";
 
-import { prisma } from "@db/prisma";
 import { getSession } from "@lib/session";
+import { prisma } from "@lib/workloads/app-db";
 import { redirect } from "next/navigation";
 
 export async function ensureUser() {

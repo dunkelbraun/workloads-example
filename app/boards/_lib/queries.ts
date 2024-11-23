@@ -1,4 +1,4 @@
-import { prisma } from "@db/prisma";
+import { prisma } from "@lib/workloads/app-db";
 
 import "server-only";
 

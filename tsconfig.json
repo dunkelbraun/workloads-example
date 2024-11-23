@@ -31,6 +31,7 @@
 		}
 	},
 	"include": [
+		"./workloads.config.ts",
 		"next-env.d.ts",
 		"./app/**/*.ts",
 		"./app/**/*.tsx",
