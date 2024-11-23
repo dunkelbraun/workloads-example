@@ -38,7 +38,7 @@ async function sessionUser() {
 }
 
 export async function confirmUser(token: string) {
-	const email = await tokensKV.get(token);
+	const email = await tokensKV.client.get(token);
 	if (email === null) {
 		return false;
 	}
@@ -50,6 +50,6 @@ export async function confirmUser(token: string) {
 			email,
 		},
 	});
-	await tokensKV.del(token);
+	await tokensKV.client.del(token);
 	return true;
 }

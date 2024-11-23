@@ -15,7 +15,7 @@ export async function signUp(prevState: AuthFormState, formData: FormData) {
 	if (validation.success) {
 		const tokenAndLink = await confirmationTokenAndLink();
 		const user = await createAccount(validation.data.email, validation.data.password);
-		await tokensKV.set(tokenAndLink.token, user.email);
+		await tokensKV.client.set(tokenAndLink.token, user.email);
 		await sendConfirmationEmail(user.email, tokenAndLink.link);
 		redirect("/thank-you");
 	}

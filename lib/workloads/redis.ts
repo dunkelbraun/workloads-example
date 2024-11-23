@@ -1,17 +1,6 @@
-import { remember } from "@epic-web/remember";
 import { Redis } from "@monolayer/workloads";
-import { createClient } from "redis";
+import { Redis as IORedis} from "ioredis";
 
-export const tokens = new Redis("tokens", (envVarName) =>
-	remember("tokens", async () =>
-		createClient({
-			url: process.env[envVarName],
-		})
-			.on("error", (err) => console.error("Redis Client Error", err))
-			.connect(),
-	),
+export const tokensKV = new Redis("tokens", (envVarName) =>
+	new IORedis(process.env[envVarName]!)
 );
-
-const tokensKV = await tokens.client;
-
-export { tokensKV };
