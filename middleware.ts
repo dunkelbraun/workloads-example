@@ -9,7 +9,9 @@ export async function middleware(request: NextRequest) {
 		!session.userId &&
 		pathName !== "/" &&
 		!pathName.startsWith("/sign-up") &&
-		!pathName.startsWith("/login")
+		!pathName.startsWith("/login") &&
+		!pathName.startsWith("/thank-you") &&
+		!pathName.startsWith("/confirm")
 	) {
 		return Response.redirect(new URL("/login", request.url));
 	}

@@ -21,9 +21,18 @@ export async function signIn(prevState: AuthFormState, formData: FormData) {
 }
 
 const schema = userCredentialsSchema.transform(async (val, ctx) => {
-	const userId = await findUser(val.email, val.password);
-	if (userId) {
-		return { ...val, userId };
+	const user = await findUser(val.email, val.password);
+	if (user && user.id) {
+		if (user.confirmed) {
+			return { ...val, userId: user.id };
+		} else {
+			ctx.addIssue({
+				code: z.ZodIssueCode.custom,
+				path: ["email"],
+				message: "Not confirmed",
+			});
+			return z.NEVER;
+		}
 	} else {
 		ctx.addIssue({
 			code: z.ZodIssueCode.custom,

@@ -16,6 +16,7 @@ model Account {
   boards Board[]
 
   Password Password?
+  confirmed Boolean @default(false)
 }
 
 model Password {

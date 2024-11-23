@@ -3,6 +3,7 @@ import "server-only";
 import { getSession } from "@lib/session";
 import { prisma } from "@lib/workloads/app-db";
 import { redirect } from "next/navigation";
+import { tokensKV } from "./workloads/redis";
 
 export async function ensureUser() {
 	const user = await sessionUser();
@@ -34,4 +35,21 @@ async function sessionUser() {
 		return;
 	}
 	return user;
+}
+
+export async function confirmUser(token: string) {
+	const email = await tokensKV.get(token);
+	if (email === null) {
+		return false;
+	}
+	await prisma.account.update({
+		data: {
+			confirmed: true,
+		},
+		where: {
+			email,
+		},
+	});
+	await tokensKV.del(token);
+	return true;
 }

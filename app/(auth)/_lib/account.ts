@@ -39,5 +39,5 @@ export async function findUser(email: string, password: string) {
 		return false;
 	}
 
-	return user.id;
+	return user;
 }
